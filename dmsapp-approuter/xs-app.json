@@ -1,4 +1,5 @@
 {
+  "welcomeFile": "/comsapdmsapp/index.html",
   "authenticationMethod": "none",
   "routes": []
 }
