@@ -1,0 +1,13 @@
+<mvc:View controllerName="com.sap.dmsapp.controller.View1" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
+<Shell id="shell">
+    <App id="app">
+      <pages>
+        <Page id="page" title="Document Management Admin UI">
+          <content>
+            <core:ComponentContainer usage="documentTable" height="100%" async="false" manifest="true"/>
+          </content>
+        </Page>
+      </pages>
+    </App>
+  </Shell>
+</mvc:View>
