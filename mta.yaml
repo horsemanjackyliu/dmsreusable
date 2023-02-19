@@ -1,0 +1,67 @@
+_schema-version: "3.2"
+ID: dmsapp1
+version: 0.0.1
+modules:
+- name: dmsapp1-approuter
+  type: approuter.nodejs
+  path: dmsapp1-approuter
+  requires:
+  - name: dmsapp1_html_repo_runtime
+  - name: uaa_dmsapp1
+  - name: sdm-instance
+  properties:
+        destinations: "[{\"name\": \"sdibackend\", \"url\": \"https://api-sdm-di.cfapps.eu10.hana.ondemand.com\", \"forwardAuthToken\": true}]"
+
+  parameters:
+    disk-quota: 256M
+    memory: 256M
+- name: dmsapp1_ui_deployer
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: dmsapp1_html_repo_host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - dmsapp1-content.zip
+      name: dmsapp1
+      target-path: resources/
+- name: dmsapp1
+  type: html5
+  path: dmsapp1
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+resources:
+- name: sdm-instance
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: sdm
+    service-plan: free   
+- name: dmsapp1_html_repo_runtime
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-plan: app-runtime
+- name: dmsapp1_html_repo_host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-plan: app-host
+- name: uaa_dmsapp1
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: dmsapp1-xsuaa-service
+    service-plan: application
+build-parameters:
+  before-all:
+  - builder: custom
+    commands:
+    - npm install

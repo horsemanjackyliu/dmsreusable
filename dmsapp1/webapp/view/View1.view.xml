@@ -1,0 +1,11 @@
+<mvc:View controllerName="com.sap.dmsapp1.controller.View1" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
+	<Shell id="shell">
+		<App id="app">
+<Page id="page" title="Dms view">
+<content>
+<core:ComponentContainer usage="documentTable" height="100%" async="false" manifest="true"/>
+</content>
+</Page>
+		</App>
+	</Shell>
+</mvc:View>
